@@ -1,0 +1,23 @@
+.app {
+    background-color: #282c34;
+    height: 100vh;
+}
+
+.counter {
+    display: flex;
+    flex-flow: column nowrap;
+    /*justify-content: flex-end;*/
+    align-items: center;
+}
+
+.num {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+}
+
+.buttons {
+    width: 100px;
+    height: 100px;
+    background-color: aquamarine;
+}
