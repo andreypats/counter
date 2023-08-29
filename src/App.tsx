@@ -24,7 +24,9 @@ function App() {
     return (
         <div className={s.app}>
             <div className={s.counter}>
-                <div className={s.num}>{num}</div>
+                <div className={s.numWindow}>
+                    <div className={num === numMax ? s.numMax : s.num}>{num}</div>
+                </div>
                 <div className={s.buttons}>
                     <Button name={'inc'} callback={incNum} disabled={disableInc}/>
                     <Button name={'reset'} callback={resetNum} disabled={disableReset}/>
