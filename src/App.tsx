@@ -6,12 +6,12 @@ function App() {
 
     let [num, setNum] = useState<number>(0)
 
-    useEffect(()=>{
+    useEffect(() => {
         let numFromLocalStorage = localStorage.getItem('counterValue') //получаем значение из localStorage
         if (numFromLocalStorage) {
             setNum(JSON.parse(numFromLocalStorage))  //JSON.parse(numFromLocalStorage) - перевод значения из строки
         }
-    },[]) //при пустом [] эффект выполнится только один раз при загрузке приложения
+    }, []) //при пустом [] эффект выполнится только один раз при загрузке приложения
 
     let numMax = 5
 
@@ -31,6 +31,10 @@ function App() {
         localStorage.setItem('counterValue', JSON.stringify(0))
     }
 
+    const setMinMax = () => {
+
+    }
+
     return (
         <div className={s.app}>
             <div className={s.counter}>
@@ -41,7 +45,21 @@ function App() {
                     <Button name={'inc'} callback={incNum} disabled={disableInc}/>
                     <Button name={'reset'} callback={resetNum} disabled={disableReset}/>
                 </div>
-
+            </div>
+            <div className={s.setMinMax}>
+                <div className={s.minMaxWindow}>
+                    <div className={s.maxWindow}>
+                        <span className={s.maxValueText}>Max Value:     </span>
+                        <input className={s.maxValueInput} type="number"/>
+                    </div>
+                    <div className={s.minWindow}>
+                        <span className={s.minValueText}>Min Value:     </span>
+                        <input className={s.minValueInput} type="number"/>
+                    </div>
+                </div>
+                <div className={s.setButtonWindow}>
+                    <Button name={'set'} callback={setMinMax} disabled={false}/>
+                </div>
             </div>
         </div>
     );

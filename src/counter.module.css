@@ -2,7 +2,8 @@
     background-color: #282c34;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -52,4 +53,37 @@
     flex-flow: row nowrap;
     justify-content: space-around;
     align-items: center;
+}
+
+.setMinMax {
+    border: #61dafb solid 1px;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.minMaxWindow {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: #61dafb;
+    margin-bottom: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.setButtonWindow {
+    width: 300px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #282c34;
+    border: #61dafb solid 1px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
 }
