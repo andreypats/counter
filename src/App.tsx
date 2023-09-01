@@ -1,25 +1,36 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './counter.module.css';
 import {Button} from './components/button/Button';
 
 function App() {
 
     let [num, setNum] = useState<number>(0)
+    let [numMax, setNumMax] = useState<number>(5)
+    let [numMin, setNumMin] = useState<number>(0)
 
     useEffect(() => {
         let numFromLocalStorage = localStorage.getItem('counterValue') //получаем значение из localStorage
         if (numFromLocalStorage) {
             setNum(JSON.parse(numFromLocalStorage))  //JSON.parse(numFromLocalStorage) - перевод значения из строки
         }
+        let maxNumFromLocalStorage = localStorage.getItem('counterMaxValue')
+        if (maxNumFromLocalStorage) {
+            setNumMax(JSON.parse(maxNumFromLocalStorage))
+        }
+        let minNumFromLocalStorage = localStorage.getItem('counterMinValue')
+        if (minNumFromLocalStorage) {
+            setNumMin(JSON.parse(minNumFromLocalStorage))
+        }
     }, []) //при пустом [] эффект выполнится только один раз при загрузке приложения
 
-    let numMax = 5
+    let [valueFromMaxInput, setValueFromMaxInput] = useState<number>(numMax)
+    let [valueFromMinInput, setValueFromMinInput] = useState<number>(numMin)
 
     let disableInc
     let disableReset
 
     num === numMax ? disableInc = true : disableInc = false
-    num === 0 ? disableReset = true : disableReset = false
+    num === numMin ? disableReset = true : disableReset = false
 
     const incNum = () => {
         setNum(++num)
@@ -27,13 +38,24 @@ function App() {
     }
 
     const resetNum = () => {
-        setNum(0)
-        localStorage.setItem('counterValue', JSON.stringify(0))
+        setNum(numMin)
+        localStorage.setItem('counterValue', JSON.stringify(numMin))
     }
 
     const setMinMax = () => {
-
+        setNumMax(valueFromMaxInput)
+        localStorage.setItem('counterMaxValue', JSON.stringify(numMax))
+        setNumMin(valueFromMinInput)
+        localStorage.setItem('counterMinValue', JSON.stringify(numMin))
     }
+
+    const maxValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setValueFromMaxInput(Number(e.currentTarget.value))
+    };
+
+    const minValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setValueFromMinInput(Number(e.currentTarget.value))
+    };
 
     return (
         <div className={s.app}>
@@ -50,11 +72,21 @@ function App() {
                 <div className={s.minMaxWindow}>
                     <div className={s.maxWindow}>
                         <span className={s.maxValueText}>Max Value:     </span>
-                        <input className={s.maxValueInput} type="number"/>
+                        <input
+                            className={s.maxValueInput}
+                            onChange={maxValueInputHandler}
+                            defaultValue={numMax}
+                            type="number"
+                        />
                     </div>
                     <div className={s.minWindow}>
                         <span className={s.minValueText}>Min Value:     </span>
-                        <input className={s.minValueInput} type="number"/>
+                        <input
+                            className={s.minValueInput}
+                            onChange={minValueInputHandler}
+                            defaultValue={numMin}
+                            type="number"
+                        />
                     </div>
                 </div>
                 <div className={s.setButtonWindow}>
