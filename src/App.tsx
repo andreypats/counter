@@ -44,9 +44,9 @@ function App() {
 
     const setMinMax = () => {
         setNumMax(valueFromMaxInput)
-        localStorage.setItem('counterMaxValue', JSON.stringify(numMax))
+        localStorage.setItem('counterMaxValue', JSON.stringify(valueFromMaxInput))
         setNumMin(valueFromMinInput)
-        localStorage.setItem('counterMinValue', JSON.stringify(numMin))
+        localStorage.setItem('counterMinValue', JSON.stringify(valueFromMinInput))
     }
 
     const maxValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
