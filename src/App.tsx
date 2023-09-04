@@ -1,6 +1,7 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './counter.module.css';
 import {Button} from './components/button/Button';
+import {Input} from "./components/input/Input";
 
 function App() {
 
@@ -23,14 +24,13 @@ function App() {
         }
     }, []) //при пустом [] эффект выполнится только один раз при загрузке приложения
 
-    let [valueFromMaxInput, setValueFromMaxInput] = useState<number>(numMax)
-    let [valueFromMinInput, setValueFromMinInput] = useState<number>(numMin)
-
     let disableInc
     let disableReset
+    let disableSet
 
     num === numMax ? disableInc = true : disableInc = false
     num === numMin ? disableReset = true : disableReset = false
+    numMin < num || numMax <= numMin ? disableSet = true : disableSet = false
 
     const incNum = () => {
         setNum(++num)
@@ -43,18 +43,16 @@ function App() {
     }
 
     const setMinMax = () => {
-        setNumMax(valueFromMaxInput)
-        localStorage.setItem('counterMaxValue', JSON.stringify(valueFromMaxInput))
-        setNumMin(valueFromMinInput)
-        localStorage.setItem('counterMinValue', JSON.stringify(valueFromMinInput))
+        localStorage.setItem('counterMaxValue', JSON.stringify(numMax))
+        localStorage.setItem('counterMinValue', JSON.stringify(numMin))
     }
 
-    const maxValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setValueFromMaxInput(Number(e.currentTarget.value))
+    const maxValueInputHandler = (num: number) => {
+        setNumMax(num)
     };
 
-    const minValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setValueFromMinInput(Number(e.currentTarget.value))
+    const minValueInputHandler = (num: number) => {
+        setNumMin(num)
     };
 
     return (
@@ -70,27 +68,19 @@ function App() {
             </div>
             <div className={s.setMinMax}>
                 <div className={s.minMaxWindow}>
-                    <div className={s.maxWindow}>
-                        <span className={s.maxValueText}>Max Value:     </span>
-                        <input
-                            className={s.maxValueInput}
-                            onChange={maxValueInputHandler}
-                            defaultValue={numMax}
-                            type="number"
-                        />
-                    </div>
-                    <div className={s.minWindow}>
-                        <span className={s.minValueText}>Min Value:     </span>
-                        <input
-                            className={s.minValueInput}
-                            onChange={minValueInputHandler}
-                            defaultValue={numMin}
-                            type="number"
-                        />
-                    </div>
+                    <Input
+                        name={'Max Value:'}
+                        onChange={maxValueInputHandler}
+                        defaultValue={numMax}
+                    />
+                    <Input
+                        name={'Min Value:'}
+                        onChange={minValueInputHandler}
+                        defaultValue={numMin}
+                    />
                 </div>
                 <div className={s.setButtonWindow}>
-                    <Button name={'set'} callback={setMinMax} disabled={false}/>
+                    <Button name={'set'} callback={setMinMax} disabled={disableSet}/>
                 </div>
             </div>
         </div>

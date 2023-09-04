@@ -1,0 +1,11 @@
+.valueText {
+    font-size: 20px;
+}
+
+.input {
+    text-align: center;
+    width: 150px;
+    font-size: 20px;
+    border: #282c34 solid 1px;
+    border-radius: 10px;
+}

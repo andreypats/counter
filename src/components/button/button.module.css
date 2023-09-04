@@ -5,6 +5,7 @@
     border-radius: 10px;
     color: #282c34;
     background-color: #61dafb;
+    font-size: 20px;
 }
 
 .button:disabled {
