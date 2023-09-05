@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import s from './counter.module.css';
 import {Button} from './components/button/Button';
-import {Input} from "./components/input/Input";
+import {Input} from './components/input/Input';
 
 function App() {
 
     let [num, setNum] = useState<number>(0)
     let [numMax, setNumMax] = useState<number>(5)
     let [numMin, setNumMin] = useState<number>(0)
+    let [blockCounter, setBlockCounter] = useState<boolean>(false)
 
     useEffect(() => {
         let numFromLocalStorage = localStorage.getItem('counterValue') //получаем значение из localStorage
@@ -30,7 +31,12 @@ function App() {
 
     num === numMax ? disableInc = true : disableInc = false
     num === numMin ? disableReset = true : disableReset = false
-    numMin < num || numMax <= numMin ? disableSet = true : disableSet = false
+    numMin < 0 || numMax <= numMin ? disableSet = true : disableSet = false
+
+    if (blockCounter) {
+        disableInc = true
+        disableReset = true
+    }
 
     const incNum = () => {
         setNum(++num)
@@ -45,21 +51,28 @@ function App() {
     const setMinMax = () => {
         localStorage.setItem('counterMaxValue', JSON.stringify(numMax))
         localStorage.setItem('counterMinValue', JSON.stringify(numMin))
+        setBlockCounter(false)
+        setNum(numMin)
     }
 
     const maxValueInputHandler = (num: number) => {
         setNumMax(num)
+        setBlockCounter(true)
     };
 
     const minValueInputHandler = (num: number) => {
         setNumMin(num)
+        setBlockCounter(true)
     };
 
     return (
         <div className={s.app}>
             <div className={s.counter}>
                 <div className={s.numWindow}>
-                    <div className={num === numMax ? s.numMax : s.num}>{num}</div>
+                    {blockCounter
+                        ? <div className={s.textNumWindow}>enter values and press 'set'</div>
+                        : <div className={num === numMax ? s.numMax : s.num}>{num}</div>
+                    }
                 </div>
                 <div className={s.buttons}>
                     <Button name={'inc'} callback={incNum} disabled={disableInc}/>

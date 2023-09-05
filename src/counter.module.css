@@ -34,6 +34,13 @@
     color: #282c34;
 }
 
+.textNumWindow {
+    position: absolute;
+    top: 45%;
+    left: 12%;
+    font-size: 20px;
+}
+
 .numMax {
     position: absolute;
     top: 25%;
@@ -76,18 +83,6 @@
     justify-content: space-around;
     align-items: center;
 }
-
-/*.valueText {
-    font-size: 20px;
-}
-
-.input {
-    text-align: center;
-    width: 150px;
-    font-size: 20px;
-    border: #282c34 solid 1px;
-    border-radius: 10px;
-}*/
 
 .setButtonWindow {
     width: 300px;
