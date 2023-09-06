@@ -37,8 +37,19 @@
 .textNumWindow {
     position: absolute;
     top: 45%;
-    left: 12%;
+    left: 9%;
     font-size: 20px;
+    color: #282c34;
+    font-weight: bold;
+}
+
+.incorrectValueText {
+    position: absolute;
+    top: 45%;
+    left: 27%;
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
 }
 
 .numMax {

@@ -11,7 +11,7 @@ export const Input = (props: InputType) => {
         <div>
             <span className={s.valueText}>{props.name}     </span>
             <input
-                className={s.input}
+                className={props.error ? s.error : s.input}
                 onChange={InputOnChangeHandler}
                 type="number"
                 value={props.defaultValue}
@@ -24,4 +24,5 @@ type InputType = {
     name: string
     onChange: (num: number)=>void
     defaultValue: number
+    error: boolean
 }

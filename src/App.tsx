@@ -28,10 +28,12 @@ function App() {
     let disableInc
     let disableReset
     let disableSet
+    let counterText
 
     num === numMax ? disableInc = true : disableInc = false
     num === numMin ? disableReset = true : disableReset = false
     numMin < 0 || numMax <= numMin ? disableSet = true : disableSet = false
+    disableSet ? counterText = `Incorrect value!` : counterText = `enter values and press 'set'`
 
     if (blockCounter) {
         disableInc = true
@@ -70,7 +72,11 @@ function App() {
             <div className={s.counter}>
                 <div className={s.numWindow}>
                     {blockCounter
-                        ? <div className={s.textNumWindow}>enter values and press 'set'</div>
+                        ? <div className={disableSet
+                            ? s.incorrectValueText
+                            : s.textNumWindow}>
+                            {counterText}
+                        </div>
                         : <div className={num === numMax ? s.numMax : s.num}>{num}</div>
                     }
                 </div>
@@ -85,11 +91,13 @@ function App() {
                         name={'Max Value:'}
                         onChange={maxValueInputHandler}
                         defaultValue={numMax}
+                        error={disableSet}
                     />
                     <Input
                         name={'Min Value:'}
                         onChange={minValueInputHandler}
                         defaultValue={numMin}
+                        error={disableSet}
                     />
                 </div>
                 <div className={s.setButtonWindow}>
