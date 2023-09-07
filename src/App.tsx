@@ -69,6 +69,7 @@ function App() {
 
     return (
         <div className={s.app}>
+            {/*------------------------counter----------------------------*/}
             <div className={s.counter}>
                 <div className={s.numWindow}>
                     {blockCounter
@@ -85,6 +86,7 @@ function App() {
                     <Button name={'reset'} callback={resetNum} disabled={disableReset}/>
                 </div>
             </div>
+            {/*------------------------setWindow---------------------------*/}
             <div className={s.setMinMax}>
                 <div className={s.minMaxWindow}>
                     <Input
